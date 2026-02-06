@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <style>
-      * {
+ * {
         margin: 0;
         padding: 0;
       }
@@ -59,23 +51,3 @@
         font-size: 16px;
         cursor: pointer;
       }
-    </style>
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="contendorTexto">
-      <p class="texto">
-        Fallos: <span id="Intentos"></span><br />Dos aciertos seguidos resta 1
-        fallo
-      </p>
-     <h1>GANAS SI TERMINAS CON 0 FALLOS</h1>
-      <div id="contendorFaustino" class="especial"> 
-        <img id="fotoFaustino" src="img/especial.png"/>
-        <p class="texto">Fustino aparece para ayudar! lanza y te resta...
-        <span id="especial" class="texto"></span>fallos!</p>
-        <button id="usarFaustino">USAR A FAUSTINO</button>
-      </div>
-    </div>
-    <script src="script.js"></script>
-  </body>
-</html>
