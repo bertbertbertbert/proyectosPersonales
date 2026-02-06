@@ -1,7 +1,7 @@
 @font-face {
-  font-family: "MiFuente";
-  src: url("./fonts/Nunito/static/Nunito-Ligth.ttf") format("woff2");
-  font-weight: normal;
+  font-family: "Nunito";
+  src: url("./fonts/Nunito/static/Nunito-Light.ttf") format("truetype");
+  font-weight: 300;
   font-style: normal;
 }
  * {
@@ -13,8 +13,8 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        background: #22C1C3;
-        background: linear-gradient(0deg,rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+        background: #545b78;
+        background: radial-gradient(circle,rgba(84, 91, 120, 1) 0%, rgba(0, 0, 0, 1) 100%);
       }
       .contendorTexto {
         width: 100%;
@@ -24,26 +24,35 @@
         margin-top: 10px;
         display: flex;
         justify-content: space-between;
+        color: white;
+        font-family: "Nunito";
+
       }
       .contendorTexto > * {
         flex: 2;
         text-align: center;
-        font-family: MiFuente;
+        font-family: "Nunito";
+        color: white;
       }
+ 
       .texto {
         font-size: 25px;
+        font-family: "Nunito";
+        color: white;
       }
       .resuelta {
         pointer-events: none;
       }
+
       .carta {
-        border: 2px solid black;
-        box-shadow: 5px 1% 1% black;
+        border: 2px solid skyblue;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         width: 130px;
         height: 150px;
         margin: 20px;
         cursor: pointer;
         background-color: grey;
+        border-radius: 35px;
       }
       .especial {
         visibility: hidden;
@@ -54,10 +63,20 @@
       #fotoFaustino {
         width: 70px;
         height: 90px;
+        border: 2px solid black;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 15px;
+
       }
       #usarFaustino {
+        font-family: "Nunito";
+        color: white;
         margin-left: 20px;
         padding: 10px;
         font-size: 16px;
         cursor: pointer;
+        background-color: black;
+        border-radius: 15px;
+        border: 2px solid skyblue;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
