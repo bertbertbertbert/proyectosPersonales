@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "MiFuente";
+  src: url("./fonts/Nunito/static/Nunito-Ligth.ttf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
  * {
         margin: 0;
         padding: 0;
