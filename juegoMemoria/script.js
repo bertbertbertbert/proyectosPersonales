@@ -34,7 +34,7 @@ const inicarJuego = () => {
         console.log("Carta especial pulsada");
         cartasBloqueadas = true;
         e.target.src = "img/especial.png";
-       /*  e.target.classList.add('resuelta'); */
+        e.target.classList.add('especialUsada');
         setTimeout(() => {
           cartasBloqueadas = false;
         }, 1000);
@@ -94,7 +94,7 @@ const cartaFaustino = () => {
 
 const cartaMarc = () => {
   todasLasCartas.forEach(carta => {
-    if (!carta.classList.contains("resuelta") && carta.id != cartasMezcladas.indexOf("marc_gregorio")){
+    if (!carta.classList.contains("resuelta") && carta.id != cartasMezcladas.indexOf("marc_gregorio") && !carta.classList.contains("especialUsada")){
       carta.classList.add("marc");
       carta.src = "img/" + cartasMezcladas[carta.id] + ".png";
     }
