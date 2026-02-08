@@ -41,21 +41,22 @@ const inicarJuego = () => {
         cartaFaustino();
         return;
       } else if ((cartasMezcladas[e.target.id] === "marc_gregorio")) {
-         cartasBloqueadas = true;
-/*        let numeroRandom = Math.floor(Math.random() * 10);
-                if(numeroRandom < 7){ 
-        e.target.src = "img/marc.png";
-        setTimeout(() => {
-          cartaMarc();
-        }, 500);
-       
-        return;
-          }else{ */
-             e.target.src = "img/gregorio.png";
-             cartaGregorio(e.target);
-            return;
+        cartasBloqueadas = true;
+        let numeroRandom = Math.floor(Math.random() * 10);
+        if (numeroRandom < 7) {
+          e.target.src = "img/marc.png";
+          setTimeout(() => {
+            cartaMarc();
+          }, 500);
+
+          return;
+        } else {
+          e.target.src = "img/gregorio.png";
+          cartaGregorio();
+          return;
+        }
       }
-      if (e.target.classList.contains('carta') &&   e.target.src != "img/especial.png") {
+      if (e.target.classList.contains('carta') && e.target.src != "img/especial.png") {
         if (click == 1) {
           manejarCarta1(e.target);
         } else {
@@ -101,24 +102,38 @@ const cartaMarc = () => {
   });
   setTimeout(() => {
     todasLasCartas.forEach(carta => {
-    if (carta.classList.contains("marc")){
-      carta.src = "img/contra.png";
-    }
-  });
+      if (carta.classList.contains("marc")) {
+        carta.src = "img/contra.png";
+      }
+    });
   }, 2000);
   cartasBloqueadas = false;
 }
 
-const cartaGregorio = (carta) => {
+const cartaGregorio = () => {
   cartasBloqueadas = true;
-  carta.src = "img/gregorio.png";
-
+  let comprobarCartaEspecial;
+  let indexCartaEspecial;
+  indexCartaEspecial = cartasMezcladas.indexOf("especial");
+  comprobarCartaEspecial = todasLasCartas[indexCartaEspecial];
+  let cartaEspecialUsada = comprobarCartaEspecial.classList.contains("especialUsada");
+  let nuevaBaraja = [];
+  for (let i = 0; i < cartasMezcladas.length; i++) {
+    if (!todasLasCartas[i].classList.contains("resuelta") && todasLasCartas[i].id != cartasMezcladas.indexOf("marc_gregorio") && !cartaEspecialUsada) {
+      nuevaBaraja.push(cartasMezcladas[i]);
+    }
+  }
   setTimeout(() => {
-    cartas = cartas.filter(c => c !== "marc_gregorio");
-    cartasMezcladas = _.shuffle(cartas);
+    document.querySelectorAll(".carta").forEach(c => c.remove());
+    todasLasCartas = [];
+    id = 0;
+    click = 1;
+    cartasMezcladas = _.shuffle(nuevaBaraja);
     cartasBloqueadas = false;
+    inicarJuego();
   }, 1000);
 };
+
 const manejarCarta1 = (carta) => {
   carta1 = carta;
   carta1.classList.add('seleccionada');
