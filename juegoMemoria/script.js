@@ -1,5 +1,5 @@
-const cartas = ["alberto", "alberto", "montse", "montse", "especial", "isma", "isma", "ferran", "ferran", "juanma", "juanma", "adri", "adri", "sergio", "sergio", "jose", "jose", "paula", "paula", "isaac", "isaac", "marc_gregorio"];
-const cartasMezcladas = _.shuffle(cartas);
+let cartas = ["alberto", "alberto", "montse", "montse", "especial", "isma", "isma", "ferran", "ferran", "juanma", "juanma", "adri", "adri", "sergio", "sergio", "jose", "jose", "paula", "paula", "isaac", "isaac", "marc_gregorio"];
+let cartasMezcladas = _.shuffle(cartas);
 let carta1;
 let carta2;
 let cartasBloqueadas = false;
@@ -42,18 +42,18 @@ const inicarJuego = () => {
         return;
       } else if ((cartasMezcladas[e.target.id] === "marc_gregorio")) {
          cartasBloqueadas = true;
-        /*         let numeroRandom = Math.floor(Math.random() * 10);
-                if(numeroRandom < 7){ */
+/*        let numeroRandom = Math.floor(Math.random() * 10);
+                if(numeroRandom < 7){ 
         e.target.src = "img/marc.png";
         setTimeout(() => {
           cartaMarc();
         }, 500);
        
         return;
-        /*  } *//* else{
+          }else{ */
              e.target.src = "img/gregorio.png";
-             cartaGregorio();
-         } */
+             cartaGregorio(e.target);
+            return;
       }
       if (e.target.classList.contains('carta') &&   e.target.src != "img/especial.png") {
         if (click == 1) {
@@ -94,7 +94,7 @@ const cartaFaustino = () => {
 
 const cartaMarc = () => {
   todasLasCartas.forEach(carta => {
-    if (!carta.classList.contains("resuelta") && carta.id != cartasMezcladas.indexOf("marc_gregorio") && !carta.classList.contains("especialUsada")){
+    if (!carta.classList.contains("resuelta") && carta.id != cartasMezcladas.indexOf("marc_gregorio") && !carta.classList.contains("especialUsada") && !carta.classList.contains("seleccionada")) {
       carta.classList.add("marc");
       carta.src = "img/" + cartasMezcladas[carta.id] + ".png";
     }
@@ -109,8 +109,19 @@ const cartaMarc = () => {
   cartasBloqueadas = false;
 }
 
+const cartaGregorio = (carta) => {
+  cartasBloqueadas = true;
+  carta.src = "img/gregorio.png";
+
+  setTimeout(() => {
+    cartas = cartas.filter(c => c !== "marc_gregorio");
+    cartasMezcladas = _.shuffle(cartas);
+    cartasBloqueadas = false;
+  }, 1000);
+};
 const manejarCarta1 = (carta) => {
   carta1 = carta;
+  carta1.classList.add('seleccionada');
   carta1.src = "img/" + cartasMezcladas[carta1.id] + ".png";
   click = 2;
 }
@@ -126,6 +137,7 @@ const manejarCarta2 = (carta) => {
 const comprobarIguales = () => {
   if (cartasMezcladas[carta1.id] !== cartasMezcladas[carta2.id]) {
     carta1.src = "img/contra.png";
+    carta1.classList.remove('seleccionada');
     carta2.src = "img/contra.png";
     aciertosSeguidos = 0;
     intentos++;
