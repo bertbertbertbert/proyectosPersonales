@@ -3,16 +3,16 @@ let cartas = ["alberto", "alberto", "montse", "montse", /* "especial", */ "isma"
 let cartasMezcladas = _.shuffle(cartas);
 let carta1;
 let carta2;
-let cartasBloqueadas = true; // 🔒 empiezan bloqueadas
+let cartasBloqueadas = true; 
 let id = 0;
 let click = 1;
 let aciertosSeguidos = 0;
 let intentos = 0;
 let todasLasCartas = [];
 
-/* ============================
-   TEMPORIZADOR
-============================ */
+
+   //TEMPORIZADOR
+
 
 let duracion = 60000;
 let tiempoInicio = null;
@@ -55,9 +55,9 @@ const finalizarJuego = (mensaje) => {
   alert(mensaje);
 };
 
-/* ============================
-   CREAR CARTAS (YA VISIBLES)
-============================ */
+
+   //CREAR CARTAS (YA VISIBLES)
+
 
 const crearTablero = () => {
 
@@ -114,9 +114,9 @@ const crearTablero = () => {
   }
 };
 
-/* ============================
-   CARTAS ESPECIALES
-============================ */
+
+   //CARTAS ESPECIALES
+
 
 const cartaFaustino = () => {
   let numeroRandom = Math.floor(Math.random() * 100);
@@ -163,13 +163,13 @@ const cartaGregorio = () => {
 
   setTimeout(() => {
     cartasMezcladas = _.shuffle(nuevaBaraja);
-    location.reload(); // reinicia tablero limpio
+    location.reload(); 
   }, 1000);
 };
 
-/* ============================
-   LOGICA CARTAS
-============================ */
+
+   //LOGICA CARTAS NORMALES
+
 
 const manejarCarta1 = (carta) => {
   carta1 = carta;
@@ -209,9 +209,9 @@ const comprobarIguales = () => {
   }
 };
 
-/* ============================
-   BOTÓN START
-============================ */
+
+   //BOTÓN START
+
 
 document.getElementById("botonStart").addEventListener("click", () => {
 
@@ -224,8 +224,6 @@ document.getElementById("botonStart").addEventListener("click", () => {
 
 });
 
-/* ============================
-   CREAR TABLERO AL CARGAR
-============================ */
 
+  //CARGAR CARTAS 
 crearTablero();
