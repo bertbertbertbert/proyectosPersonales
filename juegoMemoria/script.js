@@ -35,7 +35,7 @@ const actualizarTemporizador = (timestamp) => {
   if (tiempoRestante <= 0) {
     tiempoRestante = 0;
     document.getElementById("tiempo").innerText = "0:00";
-    finalizarJuego("⏳ Tiempo agotado");
+    finalizarJuego("Tiempo agotado");
     return;
   }
 
@@ -205,7 +205,7 @@ const comprobarIguales = () => {
 
   let cartasResueltas = document.querySelectorAll(".resuelta").length;
   if (cartasResueltas === cartasMezcladas.length) {
-    finalizarJuego("🏆 ¡Has ganado!");
+    finalizarJuego("¡Has ganado!");
   }
 };
 
