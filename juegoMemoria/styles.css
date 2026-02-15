@@ -35,12 +35,25 @@
         font-family: "Nunito";
         color: white;
       }
- 
-      .texto {
-        font-size: 25px;
+
+      #botonStart {
+        font-family: "Nunito";
+        color: white;
+        padding: 10px;
+        font-size: 40px;
+        cursor: pointer;
+        background-color: black;
+        border-radius: 15px;
+        border: 2px solid white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      #tiempo {
+        font-size: 70px;
         font-family: "Nunito";
         color: white;
       }
+
       .resuelta {
         pointer-events: none;
         visibility: hidden;
@@ -58,14 +71,16 @@
         border-radius: 35px;
       }
       .especial {
-        visibility: hidden;
+        /* visibility: hidden; */
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
       #fotoFaustino {
-        width: 70px;
-        height: 90px;
+        width: 100px;
+        height: 120px;
+        margin: 5px;
         border: 2px solid black;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         border-radius: 15px;

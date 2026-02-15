@@ -5,11 +5,7 @@ let carta2;
 let cartasBloqueadas = false;
 let id = 0;
 let click = 1;
-let intentos = document.getElementById("Intentos");
-let botonFausto = document.getElementById("usarFaustino");
-botonFausto.disabled = false;
 let contenedorFaustino = document.getElementById("contendorFaustino");
-botonFausto.style.display = "none";
 let especialFaustino = document.getElementById("especial");
 let aciertosSeguidos = 0;
 let cartaEspecial = false;
@@ -79,8 +75,6 @@ const cartaFaustino = () => {
     restaFaustino = 4;
   }
   botonFausto.style.display = "block";
-  especialFaustino.innerText = restaFaustino + " ";
-  contenedorFaustino.style.visibility = "visible";
   botonFausto.addEventListener('click', () => {
     console.log("Botón de Faustino pulsado");
     if (intentos >= restaFaustino) {
