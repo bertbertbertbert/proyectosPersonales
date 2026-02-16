@@ -1,41 +1,58 @@
 let cartas = ["alberto", "alberto", "montse", "montse", /* "especial", */ "isma", "isma", "ferran", "ferran", "juanma", "juanma", "adri", "adri", "sergio", "sergio", "jose", "jose", "paula", "paula", "isaac", "isaac"/* , "marc_gregorio" */];
 
-let cartasMezcladas = _.shuffle(cartas);
+let cartasMezcladas;
 let carta1;
 let carta2;
-let cartasBloqueadas = true; 
+let cartasBloqueadas = true;
 let id = 0;
 let click = 1;
 let aciertosSeguidos = 0;
 let intentos = 0;
 let todasLasCartas = [];
+let botonStart= document.getElementById("botonStart");
+let racha=0;
 
-
-   //TEMPORIZADOR
-
-
+//TEMPORIZADOR
 let duracion = 60000;
-let tiempoInicio = null;
+let inicio = null;
 let tiempoRestante = duracion;
 let animacionId = null;
 let juegoActivo = false;
 
 const iniciarTemporizador = () => {
-  tiempoInicio = performance.now();
+  inicio = performance.now();
   juegoActivo = true;
   animacionId = requestAnimationFrame(actualizarTemporizador);
 };
 
-const actualizarTemporizador = (timestamp) => {
+const calcularDuracion = () => {
+
+  if (racha === 0) {
+    duracion = 60000;
+  } 
+  else if (racha === 1) {
+    duracion = 55000;
+  } 
+  else if (racha === 2) {
+    duracion = 50000;
+  } 
+  else if (racha >= 3) {
+    duracion = 50000 - ((racha - 2) * 3000);
+  }
+  tiempoRestante = duracion;
+};
+
+const actualizarTemporizador = (ahora) => {
   if (!juegoActivo) return;
 
-  let tiempoTranscurrido = timestamp - tiempoInicio;
+  let tiempoTranscurrido = ahora - inicio;
   tiempoRestante = duracion - tiempoTranscurrido;
 
   if (tiempoRestante <= 0) {
     tiempoRestante = 0;
     document.getElementById("tiempo").innerText = "0:00";
-    finalizarJuego("Tiempo agotado");
+    finalizarJuego();
+      botonStart.disabled = true;
     return;
   }
 
@@ -48,21 +65,32 @@ const actualizarTemporizador = (timestamp) => {
   animacionId = requestAnimationFrame(actualizarTemporizador);
 };
 
-const finalizarJuego = (mensaje) => {
+const mostrarTiempoDisponible = () => {
+  let segundos = Math.floor(duracion / 1000);
+  document.getElementById("tiempo").innerText = `${segundos}:00`;
+};
+
+const mostrarRacha = () => {
+  document.getElementById("racha").innerText = racha;
+};
+
+const finalizarJuego = () => {
   juegoActivo = false;
   cancelAnimationFrame(animacionId);
   cartasBloqueadas = true;
-  alert(mensaje);
+  botonStart.disabled = false;
 };
 
-
-   //CREAR CARTAS (YA VISIBLES)
-
-
+//CREAR CARTAS (YA VISIBLES)
 const crearTablero = () => {
+    id = 0;
+  todasLasCartas.forEach(carta => {
+    carta.remove();
+  });
 
+  todasLasCartas = [];
+  cartasMezcladas = _.shuffle(cartas);
   for (let i = 0; i < cartasMezcladas.length; i++) {
-
     let carta = document.createElement('img');
     carta.id = id;
     id++;
@@ -115,9 +143,7 @@ const crearTablero = () => {
 };
 
 
-   //CARTAS ESPECIALES
-
-
+//CARTAS ESPECIALES
 const cartaFaustino = () => {
   let numeroRandom = Math.floor(Math.random() * 100);
   let restaFaustino = numeroRandom < 50 ? 2 : numeroRandom < 80 ? 3 : 4;
@@ -132,8 +158,8 @@ const cartaFaustino = () => {
 const cartaMarc = () => {
   todasLasCartas.forEach(carta => {
     if (!carta.classList.contains("resuelta") &&
-        !carta.classList.contains("especialUsada") &&
-        !carta.classList.contains("seleccionada")) {
+      !carta.classList.contains("especialUsada") &&
+      !carta.classList.contains("seleccionada")) {
       carta.src = "img/" + cartasMezcladas[carta.id] + ".png";
       carta.classList.add("marc");
     }
@@ -163,14 +189,12 @@ const cartaGregorio = () => {
 
   setTimeout(() => {
     cartasMezcladas = _.shuffle(nuevaBaraja);
-    location.reload(); 
+    location.reload();
   }, 1000);
 };
 
 
-   //LOGICA CARTAS NORMALES
-
-
+//LOGICA CARTAS NORMALES
 const manejarCarta1 = (carta) => {
   carta1 = carta;
   carta1.classList.add('seleccionada');
@@ -205,25 +229,32 @@ const comprobarIguales = () => {
 
   let cartasResueltas = document.querySelectorAll(".resuelta").length;
   if (cartasResueltas === cartasMezcladas.length) {
-    finalizarJuego("¡Has ganado!");
+   finalizarJuego();
+  racha++;
+  calcularDuracion();
+  crearTablero();
+  mostrarRacha();
+  mostrarTiempoDisponible();
   }
 };
 
 
-   //BOTÓN START
-
-
-document.getElementById("botonStart").addEventListener("click", () => {
+//BOTÓN START
+botonStart.addEventListener("click", () => {
 
   cartasBloqueadas = false;
   juegoActivo = true;
 
-  document.getElementById("tiempo").innerText = "60:00";
+  inicio = performance.now();
+  tiempoRestante = duracion;
 
-  iniciarTemporizador();
+  botonStart.disabled = true;
 
+  animacionId = requestAnimationFrame(actualizarTemporizador);
 });
 
 
-  //CARGAR CARTAS 
+//CARGAR CARTAS 
 crearTablero();
+mostrarRacha();
+mostrarTiempoDisponible();
