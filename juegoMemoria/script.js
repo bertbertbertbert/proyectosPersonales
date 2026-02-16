@@ -6,6 +6,7 @@ let carta2;
 let cartasBloqueadas = true;
 let id = 0;
 let click = 1;
+ let idCarta1;
 let aciertosSeguidos = 0;
 let intentos = 0;
 let todasLasCartas = [];
@@ -133,8 +134,11 @@ const crearTablero = () => {
       }
 
       if (click == 1) {
+        idCarta1 = e.target.id;
         manejarCarta1(e.target);
-      } else {
+      }else if(click == 2 && e.target.id == idCarta1){
+        return;
+      }else {
         manejarCarta2(e.target);
       }
 
@@ -173,7 +177,7 @@ const cartaMarc = () => {
       }
     });
     cartasBloqueadas = false;
-  }, 2000);
+  }, 1000);
 };
 
 const cartaGregorio = () => {
@@ -190,7 +194,7 @@ const cartaGregorio = () => {
   setTimeout(() => {
     cartasMezcladas = _.shuffle(nuevaBaraja);
     location.reload();
-  }, 1000);
+  }, 500);
 };
 
 
@@ -207,7 +211,7 @@ const manejarCarta2 = (carta) => {
   carta2.src = "img/" + cartasMezcladas[carta2.id] + ".png";
   click = 1;
   cartasBloqueadas = true;
-  setTimeout(comprobarIguales, 1000);
+  setTimeout(comprobarIguales, 500);
 };
 
 const comprobarIguales = () => {
