@@ -1,4 +1,4 @@
-let cartas = ["alberto", "alberto", "montse", "montse", /* "especial", */ "isma", "isma", "ferran", "ferran", "juanma", "juanma", "adri", "adri", "sergio", "sergio", "jose", "jose", "paula", "paula", "isaac", "isaac"/* , "marc_gregorio" */];
+let cartas = ["alberto", "alberto", "montse", "montse", /* "especial", */ "isma", "isma", "ferran", "ferran", "juanma", "juanma", "adri", "adri", "sergio", "sergio", "jose", "jose", "paula", "paula", "isaac", "isaac", "marc_gregorio"];
 
 let cartasMezcladas;
 let carta1;
@@ -23,6 +23,7 @@ let juegoActivo = false;
 const iniciarTemporizador = () => {
   inicio = performance.now();
   juegoActivo = true;
+  document.getElementById("tiempo").style.color = "white";
   animacionId = requestAnimationFrame(actualizarTemporizador);
 };
 
@@ -48,6 +49,10 @@ const actualizarTemporizador = (ahora) => {
 
   let tiempoTranscurrido = ahora - inicio;
   tiempoRestante = duracion - tiempoTranscurrido;
+
+  if(tiempoRestante <= 10000) {
+   document.getElementById("tiempo").style.color = "red";
+  }
 
   if (tiempoRestante <= 0) {
     tiempoRestante = 0;
@@ -119,18 +124,19 @@ const crearTablero = () => {
 
       if (cartasMezcladas[e.target.id] === "marc_gregorio") {
         cartasBloqueadas = true;
-        let numeroRandom = Math.floor(Math.random() * 10);
+        /* let numeroRandom = Math.floor(Math.random() * 10); */
 
-        if (numeroRandom < 7) {
+        /* if (numeroRandom < 7) { */
           e.target.src = "img/marc.png";
           setTimeout(() => {
-            cartaMarc();
+            cartaMarc(e.target);
           }, 500);
-        } else {
+          return;
+       /*  } */ /* else {
           e.target.src = "img/gregorio.png";
           cartaGregorio();
         }
-        return;
+        return; */
       }
 
       if (click == 1) {
@@ -159,11 +165,11 @@ const cartaFaustino = () => {
   }
 };
 
-const cartaMarc = () => {
+const cartaMarc = (cartaMarc) => {
   todasLasCartas.forEach(carta => {
     if (!carta.classList.contains("resuelta") &&
       !carta.classList.contains("especialUsada") &&
-      !carta.classList.contains("seleccionada")) {
+      !carta.classList.contains("seleccionada") && cartaMarc.id !== carta.id) {
       carta.src = "img/" + cartasMezcladas[carta.id] + ".png";
       carta.classList.add("marc");
     }
@@ -176,11 +182,12 @@ const cartaMarc = () => {
         carta.classList.remove("marc");
       }
     });
+    cartaMarc.classList.add('resuelta');
     cartasBloqueadas = false;
   }, 1000);
 };
 
-const cartaGregorio = () => {
+/* const cartaGregorio = () => {
   cartasBloqueadas = true;
 
   let nuevaBaraja = [];
@@ -195,7 +202,7 @@ const cartaGregorio = () => {
     cartasMezcladas = _.shuffle(nuevaBaraja);
     location.reload();
   }, 500);
-};
+}; */
 
 
 //LOGICA CARTAS NORMALES
@@ -238,6 +245,7 @@ const comprobarIguales = () => {
   calcularDuracion();
   crearTablero();
   mostrarRacha();
+  document.getElementById("tiempo").style.color = "white";
   mostrarTiempoDisponible();
   }
 };
