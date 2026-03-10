@@ -68,6 +68,14 @@
         color: white;
       }
 
+      #segundosAnyadidos {
+      opacity: 0;
+       font-size: 70px;
+        font-family: "Nunito";
+        color: white;
+     transition: opacity 0.5s ease;
+    }
+
       .resuelta {
         pointer-events: none;
         visibility: hidden;

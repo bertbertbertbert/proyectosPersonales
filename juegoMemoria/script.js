@@ -12,6 +12,7 @@ let intentos = 0;
 let todasLasCartas = [];
 let botonStart= document.getElementById("botonStart");
 let racha=0;
+let timeoutSegundos = null;
 
 //TEMPORIZADOR
 let duracion = 60000;
@@ -233,9 +234,20 @@ const comprobarIguales = () => {
     carta1.classList.add('resuelta');
     carta2.classList.add('resuelta');
     aciertosSeguidos++;
-    if (aciertosSeguidos > 1) intentos--;
+    if (aciertosSeguidos == 2){
+      tiempoRestante += 3000;
+      mostrarSegundosAnyadidos(3);
+    }else if (aciertosSeguidos == 3){
+      tiempoRestante += 5000;
+        mostrarSegundosAnyadidos(5);
+  }else if (aciertosSeguidos == 4){
+    tiempoRestante += 10000;
+  mostrarSegundosAnyadidos(10);
+  }else if (aciertosSeguidos == 5){
+    tiempoRestante += 20000;
+    mostrarSegundosAnyadidos(20);
   }
-
+}
   cartasBloqueadas = false;
 
   let cartasResueltas = document.querySelectorAll(".resuelta").length;
@@ -264,6 +276,18 @@ botonStart.addEventListener("click", () => {
 
   animacionId = requestAnimationFrame(actualizarTemporizador);
 });
+
+const mostrarSegundosAnyadidos = (segundos) => {
+  const el = document.getElementById("segundosAnyadidos");
+  el.innerText = `+${segundos}s`;
+  el.style.opacity = "1";
+
+  if (timeoutSegundos) clearTimeout(timeoutSegundos);
+
+  timeoutSegundos = setTimeout(() => {
+    el.style.opacity = "0";
+  }, 3000);
+};
 
 
 //CARGAR CARTAS 
