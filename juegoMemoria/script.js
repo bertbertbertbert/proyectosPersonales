@@ -185,7 +185,7 @@ const cartaMarc = (cartaMarc) => {
     });
     cartaMarc.classList.add('resuelta');
     cartasBloqueadas = false;
-  }, 1000);
+  }, 2000);
 };
 
 /* const cartaGregorio = () => {
